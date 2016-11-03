@@ -1,136 +1,159 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Signup  Page</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <title>Signup Page</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 </head>
+
 <body>
 
-<form id="signup" method="post" name="myform" >
-<label>User Name :</label>
-<input type="text" name="username" id="username"/>
-<label>Password :</label>
-<input type="text" name="password" id="password" />
-<label>Confirm password :</label>
-<input type="text" name="confirm" id="confirm" />
-<label>Email :</label>
-<input type="text" name="email" id="email" />
-<label>Phone :</label>
-<input type="text" name="phone" id="phone" />
-<label>Are You Librarian? </label>
-<input type="checkbox" name="check_librarian" id="check_librarian" />
-<label>First Name :</label>
-<input type="text" name="firstname" id="firstname" />
-<label>Last Name :</label>
-<input type="text" name="lastname" id="lastname" />
-<input type="button" value="Signup" id="Signup" name="Signup" />
-<input type="button" value="Go to Login page" id="Login" name="Go to Login page" hidden="true"/>
-</form>
+    <!--    <form id="signup" method="post" name="myform">-->
+    <p>
+        <label for="username">User Name :</label>
+        <input type="text" name="username" id="username" />
+    </p>
+    <p>
+        <label for="password">Password :</label>
+        <input type="text" name="password" id="password" />
+    </p>
+    <p>
+        <label for="confirm">Confirm password :</label>
+        <input type="text" name="confirm" id="confirm" />
+    </p>
+    <p>
+        <label for="email">Email :</label>
+        <input type="text" name="email" id="email" />
+    </p>
+    <p>
+        <label for="phone">Phone :</label>
+        <input type="text" name="phone" id="phone" />
+    </p>
+    <p>
+        <label for="check_librarian">Are You Librarian? </label>
+        <input type="checkbox" name="check_librarian" id="check_librarian" />
+    </p>
+    <p>
+        <label for="firstname">First Name :</label>
+        <input type="text" name="firstname" id="firstname" />
+    </p>
+    <p>
+        <label for="lastname">Last Name :</label>
+        <input type="text" name="lastname" id="lastname" />
+    </p>
+    <input type="button" value="Signup" id="Signup" name="Signup" />
+    <!--    </form>-->
 
 
-<script>
-$(document).ready(function() {
-	$('#Signup').click(function() {
-		var username = $('#username').val();
-		var password = $('#password').val();
-		var confirm = $('#confirm').val();
-		var email = $('#email').val();
-		var phone = $('#phone').val();
-		var check_librarian = $('#check_librarian').val();
-		var firstname = $('#firstname').val();
-		var lastname = $('#lastname').val();
-		if( validation(username, password, confirm, email, phone, firstname, lastname)){
-			var obj = {};
-			obj.name = username;
-			obj.password = password;
-			obj.email = email;
-			obj.phone = phone;
-			obj.check_librarian = check_librarian;
-			obj.firstname = firstname;
-			obj.lastname = lastname;
-			localStorage.setItem("userList", JSON.stringify(obj));
-			document.cookie = obj;
-			$.post('Signup.php', {postname:username, postpassword:password, postemail:email, postphone:phone, postcheck:check_librarian, postfirstname:firstname, postlastname:lastname});
-			document.getElementById("username").value = "";
-			document.getElementById("password").value = "";
-			document.getElementById("confirm").value = "";
-			document.getElementById("email").value = "";
-			document.getElementById("phone").value = "";
-			document.getElementById("check_librarian").value = "";
-			document.getElementById("firstname").value = "";
-			document.getElementById("lastname").value = "";
-			$("#Login").show();
-			alert("user: " + username + " has signed up");
-			}
-	});
-
-	$('#Login').click(function() {
-		window.location.href ="Login.html"
-	});
-	
-	function validation(username, password, confirm, email, phone, firstname, lastname){
-		var checkname = /^[a-zA-Z]+$/;
-		var checkusername = /^[a-zA-Z0-9]+$/;
-		var checkEmail = /^[A-Za-z0-9]{3}@[A-Za-z0-9]{3}.[a-zA-Z0-9]{3}$/;
-		var checkPhone = /^([0-9]{3}-[0-9]{3}-[0-9]{4}|[0-9]{10})$/;
-		var check1;
-		var check2;
-		var check3;
-		var check4;
-		var check5;
-		var check6;
-		if(checkusername.test(username)) {
-			check1 = true;
-		}
-		else{
-			check1 = false;
-			alert("Must contain	only alphabetical or numeric characters.");
-		}
-		if(password.length>0 && password == confirm){
-			check2 = true;
-		}
-		else{
-			check2 = false;
-			alert("please enter password, confirm password need to equal to password");
-		}
-		if(checkEmail.test(email)) {
-			check3 = true;
-		}
-		else{
-			check3 = false;
-			alert("Must be in the form xxx@xxx.xxx x should be alphanumeric");
-		}
-		if(checkPhone.test(phone)){
-			check4 = true;
-		}
-		else{
-			check4 = false;
-			alert("Must be in the form xxx-xxx-xxxx or xxxxxxxxxx");
-		}
-		if(checkname.test(firstname)) {
-			check5 = true;
-		}
-		else{
-			check5 = false;
-			alert("First name must contain only alphabetical.");
-		}
-		if(checkname.test(lastname)) {
-			check6 = true;
-		}
-		else{
-			check6 = false;
-			alert("Last name must contain only alphabetical.");
-		}
-		
-		return check1 & check2 & check3 & check4 & check5 & check6;
-	}
-	
-	
-});
-</script>
+    <script>
+        //        $(document).ready(function () {
+        $('#Signup').click(function () {
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var confirm = $('#confirm').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var check_librarian = document.getElementById("check_librarian").checked;
+            var firstname = $('#firstname').val();
+            var lastname = $('#lastname').val();
+            if (validation(username, password, confirm, email, phone, firstname, lastname)) {
+                //                    var obj = {};
+                //                    obj.name = username;
+                //                    obj.password = password;
+                //                    obj.email = email;
+                //                    obj.phone = phone;
+                //                    obj.check_librarian = check_librarian;
+                //                    obj.firstname = firstname;
+                //                    obj.lastname = lastname;
+                //                    localStorage.setItem("userList", JSON.stringify(obj));
+                //                    document.cookie = obj;
+                $.post('Signup.php', {
+                        postname: username,
+                        postpassword: password,
+                        postemail: email,
+                        postphone: phone,
+                        postcheck: check_librarian,
+                        postfirstname: firstname,
+                        postlastname: lastname
+                    },
+                    function (data, status) {
+                        if (data == "success") {
+                            window.open("./login.html", "_self");
+                        } else {
+                            //                                document.getElementById("username").value = "";
+                            //                                document.getElementById("password").value = "";
+                            //                                document.getElementById("confirm").value = "";
+                            //                                document.getElementById("email").value = "";
+                            //                                document.getElementById("phone").value = "";
+                            //                                document.getElementById("check_librarian").value = "";
+                            //                                document.getElementById("firstname").value = "";
+                            //                                document.getElementById("lastname").value = "";
+                            //                                alert("user: " + username + " has signed up");
+                            console.log(data);
+                        }
+                    });
+                //                    $("#Login").show();
+            }
+            //            });
+            //
+            //            $('#Login').click(function() {
+            //                window.location.href = "Login.html"
+            //            });
+            function validation(username, password, confirm, email, phone, firstname, lastname) {
+                var checkname = /^[a-zA-Z]+$/;
+                var checkusername = /^[a-zA-Z0-9]+$/;
+                var checkEmail = /^[A-Za-z0-9]+@[A-Za-z0-9]+.[a-zA-Z0-9]{3}$/;
+                var checkPhone = /^([0-9]{3}-[0-9]{3}-[0-9]{4}|[0-9]{10})$/;
+                var check1;
+                var check2;
+                var check3;
+                var check4;
+                var check5;
+                var check6;
+                if (checkusername.test(username)) {
+                    check1 = true;
+                } else {
+                    check1 = false;
+                    alert("Must contain	only alphabetical or numeric characters.");
+                }
+                if (password.length > 0 && password == confirm) {
+                    check2 = true;
+                } else {
+                    check2 = false;
+                    alert("please enter password, confirm password need to equal to password");
+                }
+                if (checkEmail.test(email)) {
+                    check3 = true;
+                } else {
+                    check3 = false;
+                    alert("Must be in the form xxx@xxx.xxx x should be alphanumeric");
+                }
+                if (checkPhone.test(phone)) {
+                    check4 = true;
+                } else {
+                    check4 = false;
+                    alert("Must be in the form xxx-xxx-xxxx or xxxxxxxxxx");
+                }
+                if (checkname.test(firstname)) {
+                    check5 = true;
+                } else {
+                    check5 = false;
+                    alert("First name must contain only alphabetical.");
+                }
+                if (checkname.test(lastname)) {
+                    check6 = true;
+                } else {
+                    check6 = false;
+                    alert("Last name must contain only alphabetical.");
+                }
+                return check1 & check2 & check3 & check4 & check5 & check6;
+            }
+        });
+    </script>
 
 
 
 </body>
+
 </html>
