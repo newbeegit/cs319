@@ -104,9 +104,24 @@ Library.prototype.createTable = function () {
 					//var borrowName = null;
 					var length = Object.keys(json_history).length;
 					for (var k=0; k<length;k++) {
-						var hiscurr_cell = $('<td width="80" height="18"></td>');
-						hiscurr_cell.append(Object.keys(json_history).UserName);
-						console.log(hiscurr_cell);
+						hiscurr_row = $('<tr></tr>');
+						hiscurr_cell = $('<td width="80" height="18"></td>');
+						hiscurr_cell.append(json_history[k]["UserName"]);
+						hiscurr_row.append(hiscurr_cell);
+						
+						hiscurr_cell = $('<td width="80" height="18"></td>');
+						hiscurr_cell.append(json_history[k]["BookId"]);
+						hiscurr_row.append(hiscurr_cell);
+						
+						hiscurr_cell = $('<td width="80" height="18"></td>');
+						hiscurr_cell.append(json_history[k]["BorrowDate"]);
+						hiscurr_row.append(hiscurr_cell);
+						
+						hiscurr_cell = $('<td width="80" height="18"></td>');
+						hiscurr_cell.append(json_history[k]["ReturnedDate"]);
+						hiscurr_row.append(hiscurr_cell);
+						
+						myhistorybody.append(hiscurr_row);
 					}
 					
 					myhistory.append(myhistorybody);
