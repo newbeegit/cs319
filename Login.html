@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>Login</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div align="center">
+        <h1>Login</h1>
+        <p>
+            <lable for="UN">User Name</lable>
+            <input id="UN" name="userName" type="text" />
+        </p>
+        <p>
+            <label for="PW">Password</label>
+            <input id="PW" name="passWord" type="password" />
+        </p>
+        <p>
+            <input type="button" id="login" name="login" value="Login" />
+            <a href="signup.html">
+                <input type="button" id="signup" name="signup" value="Register" />
+            </a>
+        </p>
+        <p id="status" style="color:red"></p>
+    </div>
+
+    <script>
+        $('#login').click(function () {
+            $.post("checklogin.php", {
+                username: $('#UN').val(),
+                password: $('#PW').val()
+            }, function (data, status) {
+                if (data == "success") {
+                    window.open("./client.php", "_self");
+                } else {
+                    $("#status").html(data);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
