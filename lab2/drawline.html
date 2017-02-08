@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
+</head>
+
+
+<body onload="startGame()">
+<p>
+	
+	<input type="button" id="mixBut" value="Start" />
+    <button type="button" onclick="turnleft()">Turn left</button>
+    <button type="button" onclick="turnright()">Turn Right</button>
+	
+</p>
+<script>
+
+var mixBut = document.getElementById("mixBut");
+var myGamePiece;
+var currentAngle = 0;
+var ifMoving = false;
+
+mixBut.addEventListener("click", Start);
+
+function turnleft() {
+	currentAngle -= Math.PI;
+}
+
+function Start(){
+    console.log("Started");
+    mixBut.removeEventListener("click", Start);
+    mixBut.addEventListener("click", Stop);
+    mixBut.value = "Stop";
+	myGameArea.start();	
+}
+
+function Stop(){
+    console.log("Stopped");
+    mixBut.removeEventListener("click", Stop);
+    mixBut.addEventListener("click", Start);
+    mixBut.value = "Start";
+	myGameArea.stop();
+}
+
+
+function startGame() {
+    myGamePiece = new component(5, 5, "red", 0, 240);
+    myGameArea.ready();
+}
+
+
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    ready : function() {
+        this.canvas.width = 640;
+        this.canvas.height = 480;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        
+    },
+	
+	start : function() {
+		this.frameNo = 0;
+        this.interval = setInterval(updateGameArea, 20);
+		ifMoving = true;
+	},
+		
+    stop : function() {
+        clearInterval(this.interval);
+		ifMoving = false;
+    },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+
+function component(width, height, color, x, y, type) {
+
+    this.type = type;
+    this.width = width;
+    this.height = height;
+    this.speed = 1;
+    //this.angle = Math.PI/2;
+	
+	this.angle = 0;
+    this.x = x;
+    this.y = y;
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.fillStyle = color;
+        ctx.fillRect(this.width , this.height , this.width, this.height);
+        ctx.restore();
+    }
+    this.newPos = function() {
+        this.x += this.speed * Math.cos(this.angle);
+        this.y += this.speed * Math.sin(this.angle);
+		
+    }
+}
+
+function updateGameArea() {
+    
+    myGamePiece.newPos();
+    myGamePiece.update();
+}
+
+
+function turnleft(){
+	if(ifMoving){
+		myGamePiece.angle -= Math.PI/2;
+		}
+}
+
+function turnright(){
+	if(ifMoving){
+		myGamePiece.angle += Math.PI/2;
+	}
+		
+}
+
+</script>
+
+
+</body>
+</html>
+
