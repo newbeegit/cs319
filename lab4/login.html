@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Javascript Login Form Validation</title>
+<!-- Include CSS File Here -->
+<link rel="stylesheet" href="style.css"/>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+<div class="main">
+
+<form id="form_id" method="post" name="myform">
+<label>User Name :</label>
+<input type="text" name="username" id="username"/>
+<label>Password :</label>
+<input type="password" name="password" id="password"/>
+<input type="button" value="Login" id="submit" name="submit"/>
+</form>
+
+</div>
+</div>
+
+<script>
+$('#submit').click(function() {
+var username = $('#username').val();
+var password = $('#password').val();
+if ( username == "admin" && password == "admin"){
+	localStorage.setItem("username", username);
+	document.cookie = username;
+	window.location = "Client.html"; 
+}
+else if( username.charAt(0) == 'U'){
+	localStorage.setItem("username", username);
+	document.cookie = username;
+	window.location = "Client.html";
+}
+else{
+	alert("Your username or password is not correct");
+}
+});
+</script>
+<script	src="booksLibrary.js"></script> 
+</body>
+</html>
